@@ -57,10 +57,11 @@ module.exports = async (req, res) => {
       }
     );
 
-    console.log('[STT API] Transcription successful:', response.data.substring(0, 100));
+    const transcription = typeof response.data === 'string' ? response.data : response.data.text;
+    console.log('[STT API] Transcription successful:', transcription.substring(0, 100));
 
     res.status(200).json({
-      transcription: response.data,
+      transcription: transcription,
     });
   } catch (error) {
     console.error('[STT API] Error:', error.response?.data || error.message);
